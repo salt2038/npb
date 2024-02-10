@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>画像アップロード</title>
+</head>
+<body>
+
+    <input type="file" id="fileInput" accept="image/*">
+    <button type="button" onclick="uploadImage()">画像をアップロード</button>
+
+<script src="https://apis.google.com/js/api.js"></script>
+<script>
+    // Google Cloud Storageの設定
+    const bucketName = 'npb_picture'; // バケット名をここに入力
+    const projectId = 'hackathon-413901'; // プロジェクトIDをここに入力
+
+    // ページが読み込まれたときに実行する初期化関数
+    function init() {
+        gapi.load('client', start);
+    }
+
+    // Google Cloud Storageクライアントを初期化する関数
+    function start() {
+        gapi.client.init({
+            'projectId': projectId,
+            'scope': 'https://www.googleapis.com/auth/devstorage.read_write'
+        }).then(function() {
+            console.log('Google Cloud Storage クライアントが初期化されました。');
+        }, function(error) {
+            console.error('Google Cloud Storage クライアントの初期化中にエラーが発生しました:', error);
+        });
+    }
+
+    // 画像をアップロードする関数
+    function uploadImage() {
+        let fileInput = document.getElementById("fileInput");
+        let file = fileInput.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(event) {
+                const imageData = event.target.result;
+                const contentType = file.type;
+                const metadata = {
+                    'contentType': contentType
+                };
+
+                // バケットに画像をアップロード
+                const request = gapi.client.request({
+                    'path': '/upload/storage/v1/b/' + bucketName + '/o',
+                    'method': 'POST',
+                    'params': {'uploadType': 'media'},
+                    'headers': {
+                        'Content-Type': contentType
+                    },
+                    'body': imageData
+                });
+
+                request.execute(function(response) {
+                    alert(response.status);
+                    alert(response.statusCode);
+                    console.log('画像がアップロードされました。');
+                    console.log('アップロードされた画像のURL:', response.mediaLink);
+                });
+            };
+        } else {
+            console.error('ファイルが選択されていません。');
+        }
+    }
+
+    // ページが読み込まれたら初期化関数を呼び出す
+    window.onload = init;
+</script>
+</body>
+</html>
