@@ -1,5 +1,11 @@
 @charset "utf-8";
 
+.bg-stripe-pgreen{
+  background-color: #d4e7e3;
+  background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-size: 3rem 3rem;
+}
+
 header{
   background: #333;
 }
@@ -11,6 +17,7 @@ h1{
   padding: 20px;
   color: #fff;
 }
+
 
 .ht {
   margin:  0;             /* デフォルトCSS打ち消し */
@@ -32,171 +39,6 @@ h1{
     bottom: -6px;           /* 位置調整 */
 }
 
-
-/*========= ファイルドロップのためのCSS ===============*/
-#inputFile {
-    position: relative;
-    padding: 180px 0 100px;
-    text-align: center;
-}
-
-#dropArea {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 100px 0 0;
-    border: 2px dashed #494949;
-    background: rgba(22, 165, 191, 0);
-    transition: all 0.25s cubic-bezier(0.21, 0.51, 0.51, 1);
-}
-
-#dropArea.dragover {
-    border: 2px solid #16a5bf;
-    background: rgba(22, 165, 191, 0.6);
-}
-
-#uploadFile {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    display: block;
-    width: 300px;
-    height: 80px;
-    opacity: 0;
-}
-
-#inputFileWrap {
-    position: relative;
-    display: inline-block;
-}
-
-#btnInputFile,
-#btnChangeFile {
-    display: table;
-    width: 300px;
-}
-
-#btnChangeFile {
-    display: none;
-}
-
-
-#btnInputFile span,
-#btnChangeFile span {
-    position: relative;
-    z-index: 2;
-    display: table-cell;
-    width: 300px;
-    height: 80px;
-    border: 1px solid #333;
-    border-radius: 4px;
-    background: #333;
-    text-decoration: none;
-    color: #fff;
-    font-size: 26px;
-    line-height: 1;
-    font-weight: bold;
-    vertical-align: middle;
-}
-
-#upFileWrap.selected #btnInputFile {
-    display: none;
-}
-
-#upFileWrap.selected #btnChangeFile {
-    display: table;
-}
-
-#preview{
-  object-fit: cover;
-  object-position: center center;
-  width: 100%;
-  height: 100%;
-}
-
-/*========= モーダル表示のためのCSS ===============*/
-
-/*resultエリアをはじめは非表示*/
 #result{
-  display: none;
-}
-
-/*モーダルの横幅を変更したい場合*/
-.modaal-container{
-    max-width: 500px;
-}
-
-/*モーダルのボタンの色を変更したい場合*/
-.modaal-close:after, 
-.modaal-close:before{
-  background:#ccc;  
-}
-
-.modaal-close:focus:after,
-.modaal-close:focus:before,
-.modaal-close:hover:after,
-.modaal-close:hover:before{
-  background:#666;
-}
-
-#two {
-  position: relative; /* 相対位置指定を追加 */
-  margin-top: 150px; /* 必要に応じて適切なマージンを指定 */
-  text-align: center;
-}
-
-
-/*== ボタン共通設定 */
-.btn{
-  /*アニメーションの起点とするためrelativeを指定*/
-  position: relative;
-  overflow: hidden;
-  /*ボタンの形状*/
-  text-decoration: none;
-  display: inline-block;
-  border: 1px solid #555;/* ボーダーの色と太さ */
-  padding: 10px 30px;
-  text-align: center;
-  outline: none;
-  /*アニメーションの指定*/   
-  transition: ease .2s;
-}
-
-/*ボタン内spanの形状*/
-.btn span {
-position: relative;
-z-index: 3;/*z-indexの数値をあげて文字を背景よりも手前に表示*/
-color:#333;
-}
-
-.btn:hover span{
-color:#fff;
-}
-
-/*== 背景が流れる（斜め） */
-.bgskew::before {
-content: '';
-/*絶対配置で位置を指定*/
-position: absolute;
-top: 0;
-left: -130%;
-/*色や形状*/
-background:#333;
-width:120%;
-height: 100%;
-transform: skewX(-25deg);
-}
-
-/*hoverした時のアニメーション*/
-.bgskew:hover::before {
-animation: skewanime .5s forwards;/*アニメーションの名前と速度を定義*/
-}
-
-@keyframes skewanime {
-100% {
-  left:-10%;/*画面の見えていない左から右へ移動する終了地点*/
-}
+  background-color: #fff;
 }
