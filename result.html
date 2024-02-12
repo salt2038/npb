@@ -6,8 +6,50 @@
 	<!--表示領域を指定-->
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<title>画像アップロード</title>
-	<link rel="stylesheet" href="style.css" type="text/css">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Modaal/0.4.4/css/modaal.min.css">
+	<style type="text/css">
+		.bg-stripe-pgreen{
+		background-color: #d4e7e3;
+		background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+		background-size: 3rem 3rem;
+		}
+
+		header{
+		background: #333;
+		}
+
+		h1{
+		font-size:1.5rem;
+		text-align: center;
+		text-transform: uppercase;
+		padding: 20px;
+		color: #fff;
+		}
+
+
+		.ht {
+		margin:  0;             /* デフォルトCSS打ち消し */
+		font-size:  24px;       /* 文字サイズ指定 */
+		padding-bottom:  5px;   /* 余白指定 */
+		margin-bottom: 15px;    /* 周りの余白指定 */
+		position:  relative;    /* 位置調整 */
+		font-weight:  normal;   /* 文字の太さ調整 */
+		}
+
+		.ht:before {
+			content:  '';           /* 空白の要素を作る */
+			width: 50px;            /* 幅指定 */
+			height: 4px;            /* 高さ指定 */
+			background-color: #000; /* 背景色指定 */
+			display:  block;        /* ブロック要素にする */
+			position:  absolute;    /* 位置調整 */
+			left:  0;               /* 位置調整 */
+			bottom: -6px;           /* 位置調整 */
+		}
+
+		#result{
+		background-color: #fff;
+		}
+	</style>
 </head>
 
 <body class="bg-stripe-pgreen">
