@@ -1,77 +1,50 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-<meta charset="UTF-8">
-<title>画像アップロード</title>
+	<meta charset="UTF-8">
+	<!--表示領域を指定-->
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>画像アップロード</title>
+	<link rel="stylesheet" href="style.css" type="text/css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Modaal/0.4.4/css/modaal.min.css">
 </head>
+
 <body>
+	<header id="header"> 
+		<h1>顔認証サービス</h1>
+	</header>
 
-    <input type="file" id="fileInput" accept="image/*">
-    <button type="button" onclick="uploadImage()">画像をアップロード</button>
+	<h2>Web会議中のあなたの写真をアップロードして、客観的に分析してみましょう！</h2>
 
-<script src="https://apis.google.com/js/api.js"></script>
-<script>
-    // Google Cloud Storageの設定
-    const bucketName = 'npb_picture'; // バケット名をここに入力
-    const projectId = 'hackathon-413901'; // プロジェクトIDをここに入力
+	<section id="one">
+		<div id="upFileWrap">
+			<div id="inputFile">
+				<!-- ドラッグ&ドロップエリア -->
+				<p id="dropArea">ここにファイルをドロップしてください<br>または</p>
+				<!-- 通常のinput[type=file] -->
+				<div id="inputFileWrap">
+					<input type="file" name="uploadFile" id="uploadFile" accept="image/*">
+					<div id="btnInputFile"><span>ファイルを選択する</span></div>
+					<div id="btnChangeFile"><span>ファイルを変更する</span></div>
+				</div>
+				<div id="preview"></div>
+			</div>
+		</div>
+	</section>
 
-    // ページが読み込まれたときに実行する初期化関数
-    function init() {
-        gapi.load('client', start);
-    }
+	<section id="two">
+		<h2><a href="#result" class="btn bgskew modal-open" onclick="fetchFunc()"><span>結果を見る</span></a></h2>
+		<section id="result">
+			<h2 class="ht">分析結果</h2>
+			<div id="comment"></div>
+		</section>
+	</section>
 
-    // Google Cloud Storageクライアントを初期化する関数
-    function start() {
-        gapi.client.init({
-            'projectId': projectId,
-            'scope': 'https://www.googleapis.com/auth/devstorage.read_write'
-        }).then(function() {
-            console.log('Google Cloud Storage クライアントが初期化されました。');
-        }, function(error) {
-            console.error('Google Cloud Storage クライアントの初期化中にエラーが発生しました:', error);
-        });
-    }
-
-    // 画像をアップロードする関数
-    function uploadImage() {
-        let fileInput = document.getElementById("fileInput");
-        let file = fileInput.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = function(event) {
-                const imageData = event.target.result;
-                const contentType = file.type;
-                const metadata = {
-                    'contentType': contentType
-                };
-
-                // バケットに画像をアップロード
-                const request = gapi.client.request({
-                    'path': '/upload/storage/v1/b/' + bucketName + '/o',
-                    'method': 'POST',
-                    'params': {'uploadType': 'media'},
-                    'headers': {
-                        'Content-Type': contentType
-                    },
-                    'body': imageData
-                });
-
-                request.execute(function(response) {
-                    alert(response.status);
-                    alert(response.statusCode);
-                    console.log('画像がアップロードされました。');
-                    console.log('アップロードされた画像のURL:', response.mediaLink);
-                });
-            };
-        } else {
-            console.error('ファイルが選択されていません。');
-        }
-    }
-
-    // ページが読み込まれたら初期化関数を呼び出す
-    window.onload = init;
-</script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Modaal/0.4.4/js/modaal.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+	<script src="./script.js"></script>
 </body>
+
 </html>
